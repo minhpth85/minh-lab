@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài học từ Mel Robbins × Seth Godin: Build a Life That Matters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1F3B2D;
+    --forest-soft: #2E5240;
+    --sage: #6F8F6A;
+    --cream: #F6F1E7;
+    --paper: #FBF8F1;
+    --line: #DDD4C1;
+    --ink: #1E2B22;
+    --muted: #5B6A5F;
+    --done: #3F7A55;
+    --wrong: #9A4A3A;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  header.hero {
+    background: var(--forest);
+    color: var(--cream);
+    padding: 56px 0 44px;
+  }
+  header.hero .eyebrow {
+    font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+    opacity: .75; margin: 0 0 10px;
+  }
+  header.hero h1 {
+    font-size: clamp(26px, 4.4vw, 38px);
+    line-height: 1.2; margin: 0 0 14px; font-weight: 600;
+  }
+  header.hero p.meta { margin: 0; opacity: .85; font-size: 15px; }
+  header.hero a { color: var(--cream); text-decoration: underline; text-underline-offset: 3px; }
+
+  nav.steps {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(246,241,231,.94);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.steps ul {
+    list-style: none; margin: 0; padding: 12px 0;
+    display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+  }
+  nav.steps a {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    color: var(--forest); text-decoration: none; font-size: 14px; font-weight: 500;
+    border: 1px solid var(--line); background: var(--paper);
+  }
+  nav.steps a:hover { border-color: var(--sage); }
+
+  section { padding: 40px 0 8px; }
+  section h2 {
+    font-size: 24px; color: var(--forest); margin: 0 0 6px; font-weight: 600;
+  }
+  section .lead { color: var(--muted); margin: 0 0 22px; }
+
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+  .card h3 { margin: 0 0 8px; font-size: 19px; color: var(--forest); font-weight: 600; }
+  .card .tag {
+    display: inline-block; font-size: 12px; color: var(--forest-soft);
+    background: #E6EBDD; border-radius: 6px; padding: 2px 8px; margin-bottom: 8px;
+  }
+  .card p { margin: 0 0 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card .label {
+    display: block; font-size: 13px; font-weight: 600; letter-spacing: .04em;
+    text-transform: uppercase; color: var(--sage); margin: 14px 0 4px;
+  }
+  .card .example {
+    border-left: 3px solid var(--sage);
+    padding: 6px 0 6px 14px; color: var(--muted); font-size: 15px; margin-top: 12px;
+  }
+  .card ul { margin: 0 0 10px; padding-left: 20px; }
+  .card li { margin-bottom: 4px; }
+
+  .keyidea {
+    background: var(--forest); color: var(--cream);
+    border-radius: 14px; padding: 20px 24px; margin: 0 0 20px;
+  }
+  .keyidea strong { color: #F3E7C4; }
+
+  /* Critical thinking */
+  .q-block {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px 20px; margin-bottom: 14px;
+  }
+  .q-block .q { font-weight: 600; color: var(--forest); margin: 0 0 8px; }
+  .q-block .hint { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+  .q-block textarea {
+    width: 100%; min-height: 84px; resize: vertical;
+    font: inherit; font-size: 15px; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 12px;
+  }
+  .q-block textarea:focus { outline: 2px solid var(--sage); outline-offset: 1px; }
+  .saved-note { font-size: 13px; color: var(--muted); margin-top: 4px; min-height: 18px; }
+
+  /* Quiz */
+  .quiz-q { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+  .quiz-q .n { font-size: 13px; color: var(--muted); margin: 0 0 4px; }
+  .quiz-q .q { font-weight: 600; color: var(--forest); margin: 0 0 12px; }
+  .opt {
+    display: block; width: 100%; text-align: left;
+    font: inherit; font-size: 15px; color: var(--ink);
+    background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 14px; margin-bottom: 8px; cursor: pointer;
+  }
+  .opt:hover:not([disabled]) { border-color: var(--sage); }
+  .opt[disabled] { cursor: default; }
+  .opt.correct { border-color: var(--done); background: #E9F2EA; }
+  .opt.wrong { border-color: var(--wrong); background: #F6E9E4; }
+  .feedback { font-size: 14px; color: var(--muted); margin: 6px 0 0; min-height: 0; }
+  .feedback:empty { display: none; }
+
+  .score-box {
+    background: var(--forest); color: var(--cream);
+    border-radius: 14px; padding: 20px 22px; margin-top: 8px;
+    display: none;
+  }
+  .score-box.show { display: block; }
+  .score-box p { margin: 0 0 12px; }
+  .btn {
+    font: inherit; font-size: 15px; font-weight: 500;
+    background: var(--cream); color: var(--forest);
+    border: none; border-radius: 999px; padding: 10px 20px; cursor: pointer;
+  }
+  .btn:hover { background: #fff; }
+
+  /* Checklist */
+  .check {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; cursor: pointer;
+  }
+  .check input { margin-top: 5px; width: 18px; height: 18px; accent-color: var(--forest); flex: 0 0 auto; }
+  .check span { font-size: 15px; }
+  .check.done span { text-decoration: line-through; color: var(--muted); }
+  .progress { font-size: 14px; color: var(--muted); margin: 0 0 12px; }
+
+  footer { padding: 36px 0 60px; color: var(--muted); font-size: 14px; text-align: center; }
+
+  @media (max-width: 520px) {
+    section h2 { font-size: 21px; }
+    .card, .q-block, .quiz-q { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="meta" style="margin-bottom:16px"><a href="../index.html">← Minh's Lab</a></p>
+    <p class="eyebrow">Bài học rút ra · Podcast</p>
+    <h1>Làm sao xây dựng cuộc sống có ý nghĩa và đạt điều bạn muốn, bắt đầu ngay hôm nay</h1>
+    <p class="meta">Mel Robbins phỏng vấn Seth Godin · Khoảng 1 giờ 6 phút · <a href="https://www.youtube.com/watch?v=cWZI2RyI9wM" target="_blank" rel="noopener">Xem video gốc</a></p>
+  </div>
+</header>
+
+<nav class="steps" aria-label="Các phần của trang">
+  <ul>
+    <li><a href="#tomtat">1. Tóm tắt</a></li>
+    <li><a href="#tuduy">2. Tư duy phản biện</a></li>
+    <li><a href="#quiz">3. Quiz</a></li>
+    <li><a href="#hanhdong">4. Checklist</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+<!-- PHẦN 1: TÓM TẮT -->
+<section id="tomtat">
+  <h2>1. Tóm tắt các ý chính</h2>
+  <p class="lead">Phần này là cách mình hiểu và diễn giải lại nội dung bằng lời của mình. Mốc thời gian là gần đúng để bạn quay lại xem trong video.</p>
+
+  <div class="keyidea">
+    <strong>Ý cốt lõi:</strong> Video cho rằng phần lớn sự trì trệ đến từ việc chúng ta chờ người khác cho phép, và tìm đủ lý do để không bắt đầu. Cách thoát ra là tự chọn mình, làm việc có ý nghĩa, chấp nhận sự khó chịu đi kèm, và làm đều đặn đến khi việc đó trở thành một phần của bản sắc mình.
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 1 · ~0:50 đến 2:30</span>
+    <h3>Pick yourself: tự chọn mình thay vì chờ được chọn</h3>
+    <span class="label">Video nói gì</span>
+    <p>Hệ thống thường dạy chúng ta chờ được tuyển, được mời, được xuất bản. Seth Godin gọi thái độ này là "pick yourself": tự quyết định mình sẽ làm việc gì rồi bắt đầu, thay vì chờ ai đó cấp phép.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Chờ được chọn có một lợi ích ngầm: nếu không ai chọn, bạn không phải chịu trách nhiệm về kết quả. Đó là lý do tại sao việc tự nhận "tôi đã làm cái này" lại khó đến vậy. Khi tự chọn mình, bạn nhận lấy trách nhiệm, và đổi lại bạn có quyền tự do và phẩm giá.</p>
+    <p>Video đưa ra một cách làm rất cụ thể: viết thành một tập PDF, gửi cho khoảng 20 người và nhờ họ chia sẻ. Nếu nó lan ra, bạn có thêm cơ hội. Nếu không lan, hãy viết thứ gì đó tốt hơn. Cách này biến việc "chờ được xuất bản" thành "đưa ra thử và học từ phản hồi".</p>
+    <div class="example">Ví dụ: Bạn có ý tưởng khóa học về design system nhưng chưa dám. Hãy làm một bản PDF 5 trang, gửi cho 20 người quen trong ngành, rồi xem họ phản hồi thế nào.</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 2 · ~8:50 đến 11:00</span>
+    <h3>Vấn đề có lời giải, hoàn cảnh thì không</h3>
+    <span class="label">Video nói gì</span>
+    <p>Video chia mọi việc khó khăn thành hai loại. "Hoàn cảnh" là thứ bạn không thể thay đổi hay kiểm soát, như luật vật lý hay quyết định của công ty. "Vấn đề" là thứ có lời giải, dù lời giải đó có thể không dễ chịu.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Việc phân loại này giúp bạn bớt mệt. Với hoàn cảnh, bạn chỉ cần chấp nhận và không tốn năng lượng tranh cãi. Với vấn đề, bạn không thể than phiền mãi, vì lời giải luôn tồn tại. Điều khó là bạn thường biết lời giải nhưng không muốn trả giá cho nó.</p>
+    <p>Video nêu các ví dụ như chia tay, chăm sóc sức khỏe, giữ ngân sách, hay đối mặt với sự đánh giá của người khác. Tất cả đều là vấn đề có lời giải. Điều khiến chúng khó là lời giải đòi hỏi một cuộc trò chuyện khó hoặc một thói quen mới.</p>
+    <div class="example">Ví dụ: Bạn muốn tăng lương. Đây là vấn đề có lời giải: một cuộc trò chuyện thẳng thắn với sếp khoảng 15 phút mỗi năm. Nếu bạn chọn không nói, thì đó là một lựa chọn chứ không phải hoàn cảnh bắt buộc.</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 3 · ~9:30 và ~28:00 đến 30:00</span>
+    <h3>Đổi "nhưng" thành "và" để không biến người khác thành cái cớ</h3>
+    <span class="label">Video nói gì</span>
+    <p>Chữ "nhưng" thường được dùng để đổ lỗi. Chữ "và" cho phép bạn giữ cả hai sự thật cùng lúc mà không biến một người nào thành lý do cho việc không làm.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Khi nói "tôi đang khỏe hơn nhưng vợ tôi không thích", chữ "nhưng" tạo ra một bên thắng và một bên thua, và vợ bạn thành lý do khiến bạn phải dừng lại. Khi nói "tôi đang khỏe hơn, và vợ tôi chưa thích điều đó", bạn có hai sự thật đứng cạnh nhau, và câu hỏi tiếp theo trở nên rõ ràng: mình sẽ làm gì với điều này?</p>
+    <p>Video cũng nhấn mạnh rằng cách nói này buộc bạn chịu trách nhiệm. Nếu người khác không thể tự giải quyết vấn đề, bạn có thể bắt đầu bằng việc lắng nghe và hiểu họ, thay vì chỉ thông báo quyết định của mình.</p>
+    <div class="example">Ví dụ: "Mình muốn làm thiết kế freelance nhưng bố mẹ lo lắng" thành "Mình muốn làm thiết kế freelance, và bố mẹ đang lo, nên mình sẽ ngồi nói chuyện để họ hiểu kế hoạch 6 tháng của mình."</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 4 · ~13:00 đến 15:00</span>
+    <h3>Resistance: sự cản trở là la bàn chỉ đường</h3>
+    <span class="label">Video nói gì</span>
+    <p>Resistance là mọi thứ chúng ta làm để tự cản mình, nhằm tránh một việc khiến mình sợ. Seth Godin cho rằng nó không thể bị xóa bỏ hoàn toàn. Nếu thấy resistance, đó là dấu hiệu bạn đang đứng gần việc quan trọng.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Video bác bỏ ý tưởng "bế tắc sáng tạo" (writer's block), xem nó như một cách tự bảo vệ: khi một việc có ý nghĩa, ta tự tạo ra lý do để không phải chịu trách nhiệm với kết quả. Điều hữu ích là đổi cách phản ứng: thay vì né, bạn nói với cảm giác đó rằng "cảm ơn, mình biết đây là việc quan trọng".</p>
+    <p>Video cũng đưa ra định nghĩa về "hard work" theo cách mới. Thời xưa làm việc chăm là mang vác nặng. Bây giờ, làm việc chăm là tìm ra lời giải chưa ai nghĩ tới, nói sự thật theo cách người khác nghe được, hoặc tạo ra thứ chưa từng có.</p>
+    <div class="example">Ví dụ: Bạn trì hoãn việc viết bài giới thiệu khóa học suốt 2 tuần. Thay vì tự trách, hãy viết ra đúng phần nào đang đáng sợ, ví dụ "mình sợ người ta thấy mình chưa đủ giỏi", rồi viết câu đầu tiên của bài.</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 5 · ~25:00 đến 27:00</span>
+    <h3>Ba động lực thúc đẩy con người: fear, affiliation, status</h3>
+    <span class="label">Video nói gì</span>
+    <p>Theo video, con người thường bị thúc đẩy bởi ba thứ: địa vị (status), sự thuộc về nhóm (affiliation) và nỗi sợ (fear). Nỗi sợ nằm dưới cùng, và hai thứ kia thường xuất phát từ nó.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Khi bạn muốn có một chiếc xe đắt tiền hay một căn bếp đẹp hơn hàng xóm, rất có thể bạn đang chạy theo địa vị. Khi bạn muốn mặc cho giống người khác để được chấp nhận, đó là sự thuộc về. Và nếu đào sâu hơn, bạn sẽ thường thấy nỗi sợ bị bỏ lại hay bị đánh giá thấp.</p>
+    <p>Video khuyên một cách rất thực tế: gọi tên động lực đó ra thành lời. Bạn có thể nói "mình làm việc này vì mình sợ bị bỏ lại" và nhận ra nó nghe thật buồn cười. Việc gọi tên làm động lực đó bớt quyền kiểm soát bạn. Sau đó hãy chọn lại "nhiên liệu": làm việc để trở thành người bạn muốn, không phải để hơn người khác.</p>
+    <div class="example">Ví dụ: Bạn đăng nhiều nội dung chỉ để đạt 10.000 người theo dõi. Thử tự hỏi: mình làm để giúp ai, hay để có con số đẹp? Khi trả lời trung thực, bạn có thể thay đổi cách làm.</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 6 · ~30:00 đến 31:50</span>
+    <h3>Sự mệt mỏi là một phần của việc quan trọng</h3>
+    <span class="label">Video nói gì</span>
+    <p>Video dùng ví dụ cuộc đua marathon: hai người đều mệt, nhưng người về đích là người biết đặt cảm giác mệt đó vào đâu. Vì vậy khi theo đuổi điều quan trọng, bạn phải chấp nhận rằng sẽ mệt, và chuẩn bị sẵn cách đối mặt.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Nhiều người nghĩ việc quan trọng sẽ dễ, và khi thấy nó khó thì bỏ cuộc. Video đảo lại: khó khăn không phải là dấu hiệu bạn chọn sai, mà là một phần của gói. Vì vậy hãy chuẩn bị sẵn thời gian nghỉ, người hỗ trợ, và cách tự nhắc mình.</p>
+    <div class="example">Ví dụ: Bạn quyết định học thêm chứng chỉ mới. Thay vì mong "học vui không mệt", hãy đặt sẵn 2 buổi tối mỗi tuần và một người để báo cáo tiến độ, để khi mệt bạn biết mình đã tính trước.</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 7 · ~35:00 đến 37:30</span>
+    <h3>Bắt đầu với nhóm người nhỏ nhất và việc nhỏ nhất</h3>
+    <span class="label">Video nói gì</span>
+    <p>Hai khái niệm chính: <em>smallest viable audience</em> là nhóm người nhỏ nhất mà nếu tác động được họ thì đã đủ ý nghĩa. <em>Smallest viable piece of art</em> là bước nhỏ nhất đáng làm. Video khuyên bắt đầu từ đó thay vì chờ tới khi có đủ điều kiện lớn.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Khi đầu óc muốn làm điều lớn, như đổi cả nghề nghiệp hay xây một thương hiệu lớn, nó thường đẩy bạn vào trạng thái tê liệt. Thu nhỏ quy mô giúp bạn bắt đầu được. Một gia đình, một người bạn, một nhóm 5 đồng nghiệp đều là khán giả đủ để việc làm có ý nghĩa.</p>
+    <p>Video cũng nói về "hobbies": đó là việc làm cho chính mình, không cần ai khen. Đừng bỏ sở thích chỉ vì người khác không hiểu nó.</p>
+    <div class="example">Ví dụ: Bạn muốn làm lại toàn bộ website khóa học. Bước nhỏ nhất có thể là viết một trang giới thiệu cho 1 người học mục tiêu, gửi cho họ đọc, rồi chỉnh theo phản hồi.</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 8 · ~39:00 đến 41:00</span>
+    <h3>Đưa ra món quà, không gắn điều kiện vào nó</h3>
+    <span class="label">Video nói gì</span>
+    <p>Video so sánh việc chia sẻ sản phẩm với việc tặng quà. Khi tặng quà, bạn không mong người nhận phải cảm ơn hay đáp lại theo cách bạn muốn. Khi bạn đặt điều kiện "tôi làm ra thứ này và bạn phải thích nó", thì đó không còn là quà nữa.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Video gọi đây là "attachment", tức là cố kiểm soát kết quả từ bên ngoài. Hình ảnh so sánh là hai người cùng bơi qua hồ: nếu buộc tay nhau bằng dây thì cả hai đều chết đuối, vì không ai đủ tự do để cứu người kia. Khi tự do, việc chia sẻ mới có chỗ cho sự kết nối thật sự.</p>
+    <p>Điều này giúp giảm thất vọng. Bạn không quyết định được việc người khác có thích hay không, nhưng bạn quyết định được mình có làm việc đó hết lòng không.</p>
+    <div class="example">Ví dụ: Sau khi đăng bài chia sẻ kinh nghiệm thiết kế, bạn không đợi lượt thích để thấy mình có giá trị. Bạn coi bài đó là món quà đã gửi đi, và tập trung vào bài tiếp theo.</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 9 · ~55:00 đến 58:00</span>
+    <h3>"Merely ship it": đạt chuẩn rồi phát hành</h3>
+    <span class="label">Video nói gì</span>
+    <p>Chữ "quality" có ba nghĩa: đạt đúng chuẩn đã đặt ra, sang trọng, và cầu toàn. Cầu toàn không làm sản phẩm tốt hơn. Nó chỉ là cách tìm lỗi mãi không hết để không phải phát hành.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Video so sánh một nhà máy ô tô ở Detroit thời trước, nơi công nhân phải dùng búa cao su để ráp chi tiết, với một nhà máy khác nơi mọi thứ khớp như đồng hồ. Ý chính là: làm đúng chuẩn đã đủ, không cần vượt chuẩn một cách vô ích.</p>
+    <p>Nên đặt ra chuẩn rõ ràng trước. Khi đạt chuẩn, hãy phát hành và chuyển sang việc tiếp theo. Nếu chuẩn không hợp lý, hãy đổi chuẩn chứ đừng lặp lại việc sửa mãi. Video cũng nhắc rằng ngay cả những cuốn sách nổi tiếng vẫn có lỗi, nên cầu toàn là một cái bẫy.</p>
+    <div class="example">Ví dụ: Với một slide khóa học, chuẩn có thể là "không lỗi chính tả, hình ảnh rõ, người học hiểu được nội dung trong 3 phút". Khi đạt, đăng và học từ phản hồi thay vì chỉnh thêm 2 tuần.</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 10 · ~58:20 đến 1:00:30</span>
+    <h3>Chúng ta trở thành điều mình làm đều đặn</h3>
+    <span class="label">Video nói gì</span>
+    <p>Video đảo ngược suy nghĩ thông thường: không phải bạn làm điều gì vì bạn đã là người như thế, mà bạn trở thành người đó nhờ làm điều đó đều đặn. Muốn trung thực thì bắt đầu nói sự thật.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Video mô tả chuỗi suy nghĩ khiến chúng ta sợ hãi: một sai lầm nhỏ dẫn đến xấu hổ, rồi bị loại khỏi nhóm, rồi cô đơn. Khi chuỗi này chạy trong đầu, ta dễ né. Gọi tên nó ra và nhận ra nó phóng đại đến mức nào, bạn sẽ bớt sợ hơn.</p>
+    <p>Mỗi ngày, bạn có thể tự hỏi: nếu hôm nay mình đóng vai phiên bản tốt nhất của mình, mình sẽ làm gì? Không cần hoàn hảo, chỉ cần làm tốt hơn một chút mỗi ngày.</p>
+    <div class="example">Ví dụ: Bạn muốn là người làm việc có kỷ luật. Thay vì đợi cảm hứng, hãy làm 20 phút việc quan trọng mỗi sáng trong 30 ngày. Sau một thời gian, hành động đó trở thành một phần con người bạn.</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 11 · ~1:00:30 đến 1:02:30</span>
+    <h3>Nhất quán quan trọng hơn "chân thật" (authenticity)</h3>
+    <span class="label">Video nói gì</span>
+    <p>Video cho rằng việc "tôi chỉ đang sống thật" thường là cái cớ để cư xử tệ. Với người xung quanh, điều họ cần là sự nhất quán: bạn giữ lời hứa và thể hiện được phiên bản tốt nhất của mình.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Hai người thường cần sự chân thật nhất là người thân thiết. Với những người còn lại, điều họ cần là bạn làm đúng như lời hứa. Một bác sĩ phẫu thuật không cần "chân thật" khi làm việc, mà cần làm việc nhất quán và chuẩn xác.</p>
+    <p>Nhất quán không có nghĩa là đóng một vai trái với bản thân, vì điều đó sẽ làm bạn kiệt sức. Mục tiêu là chọn một vai bạn có thể sống cùng mỗi ngày, rồi làm nó đều đặn.</p>
+    <div class="example">Ví dụ: Bạn là người làm giáo dục trực tuyến. Trước khi quay video, hãy tự hỏi phiên bản tốt nhất của mình sẽ nói gì với học viên. Dù hôm đó bạn mệt, vẫn giữ đúng cam kết với họ.</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Ý 12 · ~1:03:40 đến 1:04:10</span>
+    <h3>Tìm một nhóm nhỏ cùng nói sự thật</h3>
+    <span class="label">Video nói gì</span>
+    <p>Chia sẻ mục tiêu với người khác là bước giúp bạn kiên trì hơn. Một nhóm từ 1 đến 5 người nói thật với nhau và thách thức nhau sẽ giúp thay đổi bền vững hơn.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Khi bạn nói với một người bạn "mình sẽ làm việc này, nhắc mình nhé", bạn vừa chọn chính mình vừa chọn một người giữ bạn có trách nhiệm. Đây là cách biến động lực cá nhân thành một hệ thống.</p>
+    <div class="example">Ví dụ: Nhóm học tiếng Anh 3 người của bạn, mỗi tuần mỗi người gửi một đoạn luyện nói và góp ý trung thực cho người khác.</div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Kết · ~1:04:18 đến 1:05:30</span>
+    <h3>"Go make a ruckus": làm việc có ý nghĩa cho người quan tâm</h3>
+    <span class="label">Video nói gì</span>
+    <p>Seth Godin giải thích "make a ruckus" không phải là gây chú ý hay phá luật. Đó là làm việc có ích cho những người thật sự quan tâm, dù chỉ là một người, rồi lặp lại.</p>
+    <span class="label">Giải thích chi tiết</span>
+    <p>Điều này nối lại mọi ý trước đó. Bạn chọn chính mình, bắt đầu với nhóm nhỏ, chấp nhận sự mệt mỏi, phát hành khi đạt chuẩn, và giữ sự nhất quán. Kết quả không phải là một cú nổ lớn, mà là một chuỗi việc có ý nghĩa được làm đi làm lại.</p>
+    <div class="example">Ví dụ: Thay vì đổi toàn bộ hệ thống bán khóa học, hãy tạo một buổi thử nghiệm nhỏ cho 10 học viên, học từ họ, rồi lặp lại.</div>
+  </div>
+</section>
+
+<!-- PHẦN 2: TƯ DUY PHẢN BIỆN -->
+<section id="tuduy">
+  <h2>2. Câu hỏi tư duy phản biện</h2>
+  <p class="lead">Đừng trả lời vội. Viết câu trả lời của bạn vào ô bên dưới, trang sẽ tự lưu trên trình duyệt của bạn.</p>
+
+  <div class="q-block">
+    <p class="q">Q1. Trong công việc hiện tại, bạn đang gọi điều gì là "hoàn cảnh" và điều gì là "vấn đề"? Có chỗ nào bạn đang xếp nhầm không?</p>
+    <p class="hint">Gợi ý: Thử hỏi "điều này có lời giải không, và mình có muốn trả giá cho lời giải đó không?"</p>
+    <textarea data-key="q1" placeholder="Viết suy nghĩ của bạn..."></textarea>
+    <div class="saved-note"></div>
+  </div>
+
+  <div class="q-block">
+    <p class="q">Q2. Lời khuyên "cứ làm trước, tính sau" có điều kiện nào khiến nó thất bại? Ví dụ về tài chính, sức khỏe hay người phụ thuộc vào bạn.</p>
+    <p class="hint">Gợi ý: Liệt kê một rủi ro thật và một cách giảm rủi ro đó mà không phải dừng hẳn việc làm.</p>
+    <textarea data-key="q2" placeholder="Viết suy nghĩ của bạn..."></textarea>
+    <div class="saved-note"></div>
+  </div>
+
+  <div class="q-block">
+    <p class="q">Q3. Khi làm thiết kế hoặc khóa học, "đạt chuẩn rồi phát hành" khác với "cẩu thả" ở điểm nào? Làm sao bạn biết mình đang cầu toàn để trốn việc?</p>
+    <p class="hint">Gợi ý: Hãy viết ra chuẩn cụ thể của sản phẩm trước khi bắt đầu làm.</p>
+    <textarea data-key="q3" placeholder="Viết suy nghĩ của bạn..."></textarea>
+    <div class="saved-note"></div>
+  </div>
+
+  <div class="q-block">
+    <p class="q">Q4. Video khuyên làm việc không cần kết quả. Nhưng nếu bạn kinh doanh kiến thức, doanh thu là một tín hiệu quan trọng. Bạn sẽ cân bằng hai điều này thế nào?</p>
+    <p class="hint">Gợi ý: Phân biệt "kết quả để học" với "kết quả để tự đánh giá giá trị bản thân".</p>
+    <textarea data-key="q4" placeholder="Viết suy nghĩ của bạn..."></textarea>
+    <div class="saved-note"></div>
+  </div>
+
+  <div class="q-block">
+    <p class="q">Q5. Bạn có động lực nào đang đến từ việc so sánh với người khác? Nếu bỏ hết sự so sánh, bạn vẫn muốn làm điều đó không?</p>
+    <p class="hint">Gợi ý: Thử viết câu "mình làm việc này để trở thành người như thế nào vào năm sau?"</p>
+    <textarea data-key="q5" placeholder="Viết suy nghĩ của bạn..."></textarea>
+    <div class="saved-note"></div>
+  </div>
+
+  <div class="q-block">
+    <p class="q">Q6. Có điều gì trong video mà bạn không đồng ý hoặc thấy chưa thuyết phục? Lý do là gì?</p>
+    <p class="hint">Gợi ý: Tư duy phản biện không phải là bác bỏ, mà là kiểm tra xem một ý có đúng trong hoàn cảnh nào và sai trong hoàn cảnh nào.</p>
+    <textarea data-key="q6" placeholder="Viết suy nghĩ của bạn..."></textarea>
+    <div class="saved-note"></div>
+  </div>
+</section>
+
+<!-- PHẦN 3: QUIZ -->
+<section id="quiz">
+  <h2>3. Quiz kiểm tra lại</h2>
+  <p class="lead">Chọn một đáp án cho mỗi câu. Trang sẽ cho biết đúng hay sai và giải thích ngắn.</p>
+  <div id="quiz-root"></div>
+  <div class="score-box" id="score-box">
+    <p id="score-text"></p>
+    <button class="btn" id="retry-btn" type="button">Làm lại quiz</button>
+  </div>
+</section>
+
+<!-- PHẦN 4: CHECKLIST -->
+<section id="hanhdong">
+  <h2>4. Checklist hành động</h2>
+  <p class="lead">Chọn những việc bạn sẽ làm trong 7 ngày tới. Trạng thái được lưu trên trình duyệt của bạn.</p>
+  <p class="progress" id="progress"></p>
+  <div id="checklist-root"></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Tóm tắt do mình viết lại từ video gốc, không phải nội dung chính thức của tác giả.
+  </div>
+</footer>
+
+<script>
+(function () {
+  function safeGet(key) {
+    try { return window.localStorage.getItem(key); } catch (e) { return null; }
+  }
+  function safeSet(key, value) {
+    try { window.localStorage.setItem(key, value); return true; } catch (e) { return false; }
+  }
+
+  document.querySelectorAll('.q-block textarea').forEach(function (ta) {
+    var key = 'vid-cr-' + ta.dataset.key;
+    var saved = safeGet(key);
+    if (saved) ta.value = saved;
+    var note = ta.parentElement.querySelector('.saved-note');
+    var timer = null;
+    ta.addEventListener('input', function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        var ok = safeSet(key, ta.value);
+        note.textContent = ok ? 'Đã lưu trên trình duyệt này' : 'Không lưu được, nội dung chỉ tồn tại trong phiên này';
+      }, 400);
+    });
+  });
+
+  var questions = [
+    {
+      q: 'Theo video, điều gì quyết định việc bạn có bắt đầu làm điều quan trọng hay không?',
+      options: ['Chờ được người khác mời hoặc tuyển', 'Tự chọn mình và bắt đầu', 'Chờ có đủ tiền', 'Chờ đến thời điểm hoàn hảo'],
+      answer: 1,
+      why: 'Video nhấn mạnh việc tự chọn mình. Chờ được chọn là cách trì hoãn an toàn.'
+    },
+    {
+      q: 'Theo cách phân biệt "vấn đề" và "hoàn cảnh", đặc điểm của một vấn đề là gì?',
+      options: ['Không thể thay đổi', 'Luôn do người khác gây ra', 'Có lời giải, dù lời giải có thể không dễ chịu', 'Không cần hành động'],
+      answer: 2,
+      why: 'Vấn đề có lời giải, dù bạn có thể không thích lời giải đó. Hoàn cảnh thì bạn chỉ có thể chấp nhận.'
+    },
+    {
+      q: 'Vì sao video khuyên đổi "nhưng" thành "và" khi kể chuyện?',
+      options: ['Để câu văn dài hơn', 'Để giữ được cả hai sự thật cùng lúc, không biến người khác thành cái cớ', 'Để tăng cảm xúc', 'Để kết thúc tranh luận'],
+      answer: 1,
+      why: 'Chữ "và" giúp bạn nhìn nhận cả hai ý và quyết định bước tiếp theo, thay vì đổ lỗi.'
+    },
+    {
+      q: 'Trong ba cách hiểu "quality" mà video nêu, cách nào dẫn đến việc không bao giờ phát hành sản phẩm?',
+      options: ['Đạt chuẩn đã đặt ra', 'Sang trọng', 'Cầu toàn (không tìm ra lỗi nào)', 'Có chuẩn rõ ràng'],
+      answer: 2,
+      why: 'Cầu toàn là kiểu tìm lỗi mãi không hết, nên bạn không bao giờ dừng để phát hành.'
+    },
+    {
+      q: 'Hai câu hỏi cốt lõi của "intentional design" là gì?',
+      options: ['Giá bao nhiêu? Bán ở đâu?', 'Làm cho ai? Làm để làm gì?', 'Đăng lúc nào? Dùng công cụ nào?', 'Đối thủ là ai? Ai có nhiều người theo dõi nhất?'],
+      answer: 1,
+      why: 'Hai câu hỏi "làm cho ai" và "làm để làm gì" giúp bạn định hướng nội dung và mục đích.'
+    },
+    {
+      q: '"Smallest viable audience" nghĩa là gì?',
+      options: ['Nhóm người lớn nhất có thể tiếp cận', 'Nhóm người nhỏ nhất mà nếu tác động được họ thì đã đủ ý nghĩa', 'Chỉ làm cho chính mình', 'Chỉ làm cho người nổi tiếng'],
+      answer: 1,
+      why: 'Bắt đầu nhỏ giúp bạn thử nghiệm và học nhanh hơn, không phải chờ lượng người lớn.'
+    },
+    {
+      q: 'Theo video, con người trở thành điều gì?',
+      options: ['Những gì họ nghĩ', 'Những gì họ sở hữu', 'Những gì người khác kỳ vọng', 'Những gì họ làm đều đặn'],
+      answer: 3,
+      why: 'Bản sắc được tạo nên từ hành động lặp lại. Điều này là trọng tâm của phần nói về sự nhất quán.'
+    },
+    {
+      q: 'Khi chọn "nhiên liệu" cho việc mình làm, video khuyên điều gì?',
+      options: ['Muốn hơn người khác', 'Muốn trở thành người mình muốn trở thành', 'Muốn nhiều lượt thích', 'Muốn tránh bị chê bai'],
+      answer: 1,
+      why: 'So sánh với người khác là một vòng lặp không có điểm kết thúc. Hướng tới phiên bản mới của chính mình bền hơn.'
+    }
+  ];
+
+  var quizRoot = document.getElementById('quiz-root');
+  var scoreBox = document.getElementById('score-box');
+  var scoreText = document.getElementById('score-text');
+  var answered = 0;
+  var correct = 0;
+
+  function renderQuiz() {
+    quizRoot.innerHTML = '';
+    answered = 0;
+    correct = 0;
+    scoreBox.classList.remove('show');
+    questions.forEach(function (item, idx) {
+      var wrap = document.createElement('div');
+      wrap.className = 'quiz-q';
+      wrap.innerHTML = '<p class="n">Câu ' + (idx + 1) + '/' + questions.length + '</p><p class="q"></p><div class="opts"></div><p class="feedback"></p>';
+      wrap.querySelector('.q').textContent = item.q;
+      var optsBox = wrap.querySelector('.opts');
+      var fb = wrap.querySelector('.feedback');
+      item.options.forEach(function (text, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'opt';
+        b.textContent = text;
+        b.addEventListener('click', function () {
+          var buttons = optsBox.querySelectorAll('.opt');
+          buttons.forEach(function (x) { x.disabled = true; });
+          if (i === item.answer) {
+            b.classList.add('correct');
+            correct++;
+            fb.textContent = 'Đúng. ' + item.why;
+          } else {
+            b.classList.add('wrong');
+            buttons[item.answer].classList.add('correct');
+            fb.textContent = 'Chưa đúng. ' + item.why;
+          }
+          answered++;
+          if (answered === questions.length) {
+            scoreText.textContent = 'Bạn trả lời đúng ' + correct + '/' + questions.length + ' câu.';
+            scoreBox.classList.add('show');
+            scoreBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+        optsBox.appendChild(b);
+      });
+      quizRoot.appendChild(wrap);
+    });
+  }
+
+  document.getElementById('retry-btn').addEventListener('click', renderQuiz);
+  renderQuiz();
+
+  var items = [
+    { key: 'ck1', text: 'Viết ra một việc quan trọng mình đang né, và gọi tên nỗi sợ đằng sau nó.' },
+    { key: 'ck2', text: 'Trước khi đăng một nội dung, tự hỏi: làm cho ai, và để làm gì.' },
+    { key: 'ck3', text: 'Chọn "smallest viable audience" cho dự án kế tiếp (1 đến 5 người).' },
+    { key: 'ck4', text: 'Viết tiêu chuẩn cụ thể cho một sản phẩm, đạt chuẩn rồi phát hành trong 7 ngày.' },
+    { key: 'ck5', text: 'Tìm 1 đến 3 người cùng làm, hẹn check-in mỗi tuần để nói thật về tiến độ.' },
+    { key: 'ck6', text: 'Đổi một câu "nhưng" hay than phiền thành câu có "và" trong ngày hôm nay.' }
+  ];
+
+  var listRoot = document.getElementById('checklist-root');
+  var progress = document.getElementById('progress');
+
+  function updateProgress() {
+    var done = listRoot.querySelectorAll('input:checked').length;
+    progress.textContent = 'Đã hoàn thành ' + done + '/' + items.length + ' việc';
+  }
+
+  items.forEach(function (it) {
+    var label = document.createElement('label');
+    label.className = 'check';
+    var cb = document.createElement('input');
+    cb.type = 'checkbox';
+    var saved = safeGet('vid-' + it.key);
+    cb.checked = saved === '1';
+    if (cb.checked) label.classList.add('done');
+    var span = document.createElement('span');
+    span.textContent = it.text;
+    label.appendChild(cb);
+    label.appendChild(span);
+    cb.addEventListener('change', function () {
+      label.classList.toggle('done', cb.checked);
+      safeSet('vid-' + it.key, cb.checked ? '1' : '0');
+      updateProgress();
+    });
+    listRoot.appendChild(label);
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
