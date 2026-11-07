@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minh's Lab · Thư viện tóm tắt YouTube</title>
+<meta name="description" content="Thư viện cá nhân tổng hợp các bản tóm tắt video YouTube về học nói tiếng Anh, mindset và tâm lý.">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Minh's <span>Lab</span></a>
+    <div class="top-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Đổi giao diện sáng/tối">☾</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Thư viện tóm tắt YouTube</span>
+      <h1>Những gì mình học được, <span class="accent">gọn một chỗ</span></h1>
+      <p class="lead">Tóm tắt các video mình thích về học nói tiếng Anh, mindset và tâm lý: ý chính, trích dẫn hay và ghi chú riêng.</p>
+      <div class="hero-actions">
+        <a class="btn btn--primary" href="#library">Vào thư viện</a>
+        <a class="btn btn--secondary" href="#topics-home">Khám phá theo chủ đề</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap stats" id="stats"></div>
+  </section>
+
+  <section class="sec" id="topics-home">
+    <div class="wrap">
+      <span class="eyebrow">Khám phá</span>
+      <h2>Ba chủ đề mình đang theo</h2>
+      <div class="grid-3" id="topicCards"></div>
+    </div>
+  </section>
+
+  <section class="sec sec--alt" id="latest-wrap" hidden>
+    <div class="wrap">
+      <span class="eyebrow">Mới thêm</span>
+      <div id="latest"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="library">
+  <div class="wrap">
+    <span class="eyebrow">Thư viện</span>
+    <h2>Tất cả bài tóm tắt</h2>
+    <div class="toolbar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Tìm theo tiêu đề, kênh, tag hoặc nội dung tóm tắt…" aria-label="Tìm kiếm">
+      </label>
+      <div class="row"><span class="row-label">Chủ đề</span><div class="row" id="topics" style="gap:8px"></div></div>
+      <div class="row"><span class="row-label">Tag</span><div class="row" id="tags" style="gap:8px"></div></div>
+      <div class="row">
+        <span class="row-label">Hiển thị</span>
+        <div class="row" id="status">
+          <button class="pill" data-v="all" aria-pressed="true">Tất cả</button>
+          <button class="pill" data-v="fav" aria-pressed="false">♥ Yêu thích</button>
+          <button class="pill" data-v="unread" aria-pressed="false">Chưa đọc</button>
+          <button class="pill" data-v="read" aria-pressed="false">Đã đọc</button>
+        </div>
+        <select class="pill" id="sort" aria-label="Sắp xếp" style="margin-left:auto">
+          <option value="new">Mới xem nhất</option>
+          <option value="rating">Đánh giá cao nhất</option>
+        </select>
+      </div>
+      <div class="result-count" id="count" aria-live="polite"></div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Minh's Lab · Tóm tắt bằng lời của mình, nguồn thuộc về tác giả video gốc.</div>
+</footer>
+
+<script src="data/posts.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

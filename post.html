@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bài viết · Minh's Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+/* Minh's Lab — design tokens lấy từ bộ Herbloom (file English Fluency Framework) */
+:root{
+  --green-900:#17301d; --green-700:#317345; --green-600:#32854d; --green-500:#4a9b60; --green-300:#b8e0c2; --green-100:#ebf6ee;
+  --cream-50:#fbfaf5; --cream-100:#f8f6ea;
+  --amber-700:#8a6421; --amber-50:#fbf3e0;
+  --ink-900:#171c18; --ink-700:#1f2a22; --ink-500:#505e4f;
+  --line:#e1eae5; --line-strong:#84968a;
+
+  --bg:var(--cream-50); --bg-alt:var(--cream-100); --surface:#fff;
+  --text:var(--ink-700); --text-strong:var(--ink-900); --text-muted:var(--ink-500);
+  --brand:var(--green-600); --brand-strong:var(--green-700); --brand-ink:var(--green-900);
+  --chip-bg:var(--green-100); --chip-fg:var(--green-700);
+  --note-bg:var(--amber-50); --note-fg:var(--amber-700);
+  --star:#c9962f; --header-bg:rgba(251,250,245,.92);
+  --r-sm:8px; --r-md:12px; --r-lg:20px; --r-full:999px;
+  --shadow-sm:0 1px 2px rgba(23,28,24,.06),0 1px 3px rgba(23,28,24,.04);
+  --shadow-md:0 6px 20px rgba(23,28,24,.10);
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --bg:#0f1a13; --bg-alt:#132119; --surface:#17261c;
+  --text:#d9e6dc; --text-strong:#f4faf6; --text-muted:#9db3a3;
+  --brand:#4a9b60; --brand-strong:#b8e0c2; --brand-ink:#f4faf6;
+  --chip-bg:#1f3626; --chip-fg:#b8e0c2;
+  --note-bg:#2a2414; --note-fg:#e3bd6c;
+  --line:#25382b; --line-strong:#5c7566; --star:#e3b552;
+  --header-bg:rgba(15,26,19,.92);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 6px 20px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1a13; --bg-alt:#132119; --surface:#17261c;
+    --text:#d9e6dc; --text-strong:#f4faf6; --text-muted:#9db3a3;
+    --brand:#4a9b60; --brand-strong:#b8e0c2; --brand-ink:#f4faf6;
+    --chip-bg:#1f3626; --chip-fg:#b8e0c2;
+    --note-bg:#2a2414; --note-fg:#e3bd6c;
+    --line:#25382b; --line-strong:#5c7566; --star:#e3b552;
+    --header-bg:rgba(15,26,19,.92);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 6px 20px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Work Sans",system-ui,sans-serif;font-size:16px;line-height:24px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.wrap--narrow{max-width:800px}
+@media(max-width:720px){.wrap{padding:0 16px}}
+h1,h2,h3{color:var(--text-strong);margin:0}
+h1{font-size:56px;line-height:60px;font-weight:700;letter-spacing:-.03em}
+h2{font-size:28px;line-height:34px;font-weight:600;letter-spacing:-.01em;margin-bottom:16px}
+h3{font-size:18px;line-height:24px;font-weight:600}
+p{margin:0 0 16px}
+a{color:var(--brand-strong)}
+button{font-family:inherit}
+@media(max-width:720px){h1{font-size:40px;line-height:44px}h2{font-size:24px;line-height:30px}}
+
+.eyebrow{display:inline-block;font-size:12px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-strong);margin-bottom:16px}
+.accent{color:var(--brand)}
+.lead{font-size:18px;line-height:28px;color:var(--text-muted);max-width:640px;margin:20px 0 0}
+.muted{color:var(--text-muted);font-size:14px;line-height:20px}
+
+/* header */
+header.top{position:sticky;top:0;z-index:10;background:var(--header-bg);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.brand{font-weight:700;color:var(--brand-ink);font-size:18px;text-decoration:none;letter-spacing:-.01em}
+.brand span{color:var(--brand)}
+.top-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{width:40px;height:40px;border-radius:var(--r-md);border:1px solid var(--line);background:var(--surface);color:var(--text-strong);cursor:pointer;font-size:18px;display:grid;place-items:center}
+.icon-btn:hover{border-color:var(--line-strong)}
+:focus-visible{outline:2px solid var(--green-500);outline-offset:2px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:var(--r-md);font:600 15px/24px "Work Sans",sans-serif;text-decoration:none;border:1.5px solid transparent;cursor:pointer}
+.btn--primary{background:var(--brand);color:#fff}
+.btn--primary:hover{background:var(--green-700)}
+.btn--secondary{background:transparent;color:var(--brand-strong);border-color:var(--line-strong)}
+.btn--secondary:hover{border-color:var(--brand)}
+.btn[aria-pressed="true"]{background:var(--chip-bg);color:var(--chip-fg);border-color:var(--brand)}
+
+/* hero */
+.hero{padding:80px 0 40px}
+@media(max-width:720px){.hero{padding:48px 0 24px}}
+
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.sec{padding:72px 0}
+.sec--alt{background:var(--bg-alt)}
+#library{padding-top:72px;scroll-margin-top:64px}
+#topics-home{scroll-margin-top:64px}
+@media(max-width:720px){.sec,#library{padding:48px 0}}
+.band{background:var(--green-900);color:#f4faf6;padding:40px 0;margin-top:24px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.stat b{display:block;font-size:32px;line-height:36px;font-weight:600;color:var(--green-300)}
+.stat span{color:#d5e6d9;font-size:14px;line-height:20px}
+@media(max-width:620px){.stats{grid-template-columns:1fr;gap:16px}}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.grid-3{grid-template-columns:1fr}}
+.tcard{text-align:left;font:inherit;color:inherit;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;box-shadow:var(--shadow-sm);transition:box-shadow .15s,transform .15s}
+.tcard:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.tcard .icon{width:40px;height:40px;border-radius:var(--r-sm);background:var(--chip-bg);color:var(--chip-fg);display:grid;place-items:center;font-weight:700;margin-bottom:16px}
+.tcard h3{margin-bottom:6px}
+.tcard p{margin:0;color:var(--text-muted);font-size:14px;line-height:20px}
+.feature{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center;margin-top:8px}
+@media(max-width:800px){.feature{grid-template-columns:1fr}}
+.feature .cover{display:block;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-md)}
+.feature .cover img{width:100%;height:100%;object-fit:cover;display:block}
+.feature h2{margin:12px 0}
+.feature p{color:var(--text-muted);max-width:60ch}
+
+/* toolbar */
+.toolbar{display:grid;gap:16px;margin:8px 0 32px}
+.search{position:relative}
+.search input{width:100%;height:52px;border-radius:var(--r-md);border:1.5px solid var(--line);background:var(--surface);color:var(--text-strong);font:500 16px "Work Sans",sans-serif;padding:0 16px 0 46px}
+.search input::placeholder{color:var(--text-muted)}
+.search input:focus{outline:none;border-color:var(--brand)}
+.search svg{position:absolute;left:16px;top:16px;width:20px;height:20px;stroke:var(--text-muted)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-right:4px;min-width:64px}
+.pill{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:var(--r-full);padding:6px 14px;font:500 14px/20px "Work Sans",sans-serif;cursor:pointer}
+.pill:hover{border-color:var(--line-strong)}
+.pill[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.pill small{opacity:.7;margin-left:4px}
+select.pill{padding-right:8px}
+.result-count{font-size:14px;color:var(--text-muted)}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.grid{grid-template-columns:1fr}}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s,transform .15s}
+.card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.card a.cover{display:block;aspect-ratio:16/9;background:var(--chip-bg)}
+.card a.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.card-body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card h3 a{color:var(--text-strong);text-decoration:none}
+.card h3 a::after{content:"";position:absolute;inset:0}
+.card .fav{position:absolute;top:12px;right:12px;z-index:2}
+.fav{width:38px;height:38px;border-radius:var(--r-full);border:none;background:rgba(255,255,255,.92);color:#6b7a70;font-size:19px;cursor:pointer;display:grid;place-items:center;box-shadow:var(--shadow-sm)}
+.fav[aria-pressed="true"]{color:#d4483b}
+.meta{font-size:14px;line-height:20px;color:var(--text-muted)}
+.stars{color:var(--star);letter-spacing:2px;font-size:15px}
+.stars .off{color:var(--line-strong);opacity:.5}
+.chip{display:inline-block;font-size:12px;line-height:16px;font-weight:600;padding:4px 12px;border-radius:var(--r-full);background:var(--chip-bg);color:var(--chip-fg)}
+.chip--ghost{background:transparent;border:1px solid var(--line);color:var(--text-muted);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.badge-read{position:absolute;top:12px;left:12px;z-index:2;background:var(--brand);color:#fff;font-size:12px;font-weight:600;padding:4px 10px;border-radius:var(--r-full)}
+.empty{grid-column:1/-1;text-align:center;padding:64px 16px;color:var(--text-muted);background:var(--bg-alt);border-radius:var(--r-lg)}
+
+footer{padding:48px 0;font-size:14px;color:var(--text-muted);border-top:1px solid var(--line);margin-top:80px}
+
+/* post page */
+.post-head{padding:48px 0 24px}
+.post-head h1{font-size:40px;line-height:46px;letter-spacing:-.02em;margin:8px 0 16px}
+@media(max-width:720px){.post-head h1{font-size:30px;line-height:36px}}
+.back{display:inline-block;font-size:14px;font-weight:500;text-decoration:none;margin-bottom:16px}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--text-muted);align-items:center}
+.video{position:relative;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;background:#000;box-shadow:var(--shadow-md);margin:24px 0}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px}
+.block{padding:32px 0;border-top:1px solid var(--line)}
+.points{list-style:none;counter-reset:p;padding:0;margin:0;display:grid;gap:12px}
+.points li{counter-increment:p;display:flex;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 20px}
+.points li::before{content:counter(p);flex:0 0 32px;height:32px;border-radius:var(--r-sm);background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:700;font-size:15px}
+.quote{margin:0 0 16px;padding:20px 24px;background:var(--chip-bg);border-left:4px solid var(--brand);border-radius:0 var(--r-md) var(--r-md) 0}
+.quote p{margin:0;font-style:italic;color:var(--text-strong);font-size:18px;line-height:28px}
+.quote .vi{display:block;margin-top:8px;font-style:normal;font-size:14px;line-height:20px;color:var(--text-muted)}
+mark{background:#f6e3a4;color:#171c18;border-radius:3px;padding:0 2px}
+.notes textarea{width:100%;min-height:160px;resize:vertical;border:1.5px solid var(--line);border-radius:var(--r-md);background:var(--surface);color:var(--text-strong);font:400 16px/24px "Work Sans",sans-serif;padding:14px 16px}
+.notes textarea:focus{outline:none;border-color:var(--brand)}
+.hl-list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.hl-list li{display:flex;justify-content:space-between;gap:12px;background:var(--note-bg);color:var(--text-strong);border-radius:var(--r-md);padding:10px 14px;font-size:15px}
+.hl-list button{border:none;background:none;color:var(--text-muted);cursor:pointer;font-size:18px;line-height:1}
+.hl-pop{position:absolute;z-index:30;background:var(--green-900);color:#fff;border:none;border-radius:var(--r-md);padding:8px 14px;font:600 14px "Work Sans",sans-serif;cursor:pointer;box-shadow:var(--shadow-md);display:none}
+.callout{background:var(--note-bg);border-radius:var(--r-lg);padding:20px 24px;color:var(--text)}
+.callout b{color:var(--note-fg)}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Minh's <span>Lab</span></a>
+    <div class="top-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Đổi giao diện sáng/tối">☾</button>
+    </div>
+  </div>
+</header>
+
+<main id="post"></main>
+
+<footer>
+  <div class="wrap wrap--narrow">Minh's Lab · Tóm tắt bằng lời của mình, nguồn thuộc về tác giả video gốc.</div>
+</footer>
+
+<script>
+/* Dữ liệu thư viện. Mỗi bài là một đối tượng. Thêm bài mới = thêm một khối vào mảng này.
+   (Khi bạn gửi file Markdown, tôi sẽ chuyển chúng vào đây.)
+   rating: 1-5 | watched: YYYY-MM-DD | topic: một trong 3 chủ đề */
+window.TOPICS = ["Học nói tiếng Anh", "Mindset", "Tâm lý"];
+
+window.POSTS = [
+  {
+    id: "english-fluency-framework",
+    title: "English Fluency Framework: nói tiếng Anh trôi chảy với 3 lớp",
+    youtube: "https://www.youtube.com/watch?v=4Q8HkIsVYi4",
+    videoId: "4Q8HkIsVYi4",
+    channel: "Tiffani (English teacher)",
+    watched: "2026-11-07",
+    topic: "Học nói tiếng Anh",
+    tags: ["speaking", "fluency", "storytelling", "IELTS Speaking", "luyện mỗi ngày"],
+    rating: 5,
+    summary: "Người bản xứ không biết nhiều từ hơn bạn. Họ chỉ có một cấu trúc để trả lời: đưa ba chi tiết, thêm quan điểm kèm ba lý do, rồi kể một câu chuyện thật.",
+    keyPoints: [
+      "Bạn bị đứng hình vì trả lời một hơi rồi im lặng (\"It was good.\"). Vấn đề không nằm ở từ vựng mà ở cách tổ chức câu trả lời.",
+      "Lớp 1, Chi tiết: thay vì một câu, hãy đưa ba chi tiết (Topic → Detail 1 → Detail 2 → Detail 3). Ba là đủ đầy nhưng không lan man.",
+      "Lớp 2, Quan điểm + 3 lý do: mở bằng \"I think / Honestly…\" rồi đưa ba lý do. Quan điểm có thể trung lập hoặc tiêu cực, miễn là có lý do rõ ràng.",
+      "Lớp 3, Câu chuyện thật: Bối cảnh → Biến cố → Kết thúc và bài học. Dùng 5W (Who, What, When, Where, Why) để không thiếu chi tiết quan trọng.",
+      "Ghép ba lớp lại: lớp 1 giúp người nghe hiểu, lớp 2 cho họ thấy bạn nghĩ gì, lớp 3 khiến họ nhớ, mà không cần thêm từ vựng mới.",
+      "Luyện 15 phút mỗi ngày: viết nhật ký theo ba lớp, đọc to, rồi ghi âm 60 giây và nghe lại để biết đang kẹt ở lớp nào.",
+      "Bonus: hãy cho những người đã giúp bạn biết bạn trân trọng họ. Đó cũng là câu chuyện tốt để luyện lớp 3."
+    ],
+    quotes: [
+      { text: "The problem is not your vocabulary. It is how you structure the answer.", vi: "Vấn đề không nằm ở từ vựng mà ở cách bạn tổ chức câu trả lời." },
+      { text: "Three is enough to sound full, but short enough that you never ramble.", vi: "Ba chi tiết là đủ đầy nhưng không lan man." },
+      { text: "Layer 1 helps listeners understand, Layer 2 shows what you think, and Layer 3 makes them remember.", vi: "Lớp 1 giúp hiểu, lớp 2 cho thấy quan điểm, lớp 3 khiến người nghe nhớ." }
+    ],
+    fullPage: "lessons/english-fluency-framework.html"
+  }
+];
+
+</script>
+<script>
+/* Minh's Lab — logic dùng chung cho index và trang chi tiết */
+(function () {
+  "use strict";
+
+  /* ---------- tiện ích ---------- */
+  var KEY = "mlab:v1";
+  function load() {
+    try { return Object.assign({ fav: {}, read: {}, notes: {}, hl: {}, theme: "" }, JSON.parse(localStorage.getItem(KEY) || "{}")); }
+    catch (e) { return { fav: {}, read: {}, notes: {}, hl: {}, theme: "" }; }
+  }
+  var S = load();
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function norm(s) { return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d"); }
+  function fmtDate(d) { var t = new Date(d + "T00:00:00"); return isNaN(t) ? d : t.toLocaleDateString("vi-VN"); }
+  function stars(n) {
+    var h = "";
+    for (var i = 1; i <= 5; i++) h += i <= n ? "★" : '<span class="off">★</span>';
+    return '<span class="stars" role="img" aria-label="' + n + ' trên 5 sao">' + h + "</span>";
+  }
+  function href(p) { return p.fullPage || "post.html?id=" + encodeURIComponent(p.id); }
+  function byId(id) { return (window.POSTS || []).filter(function (p) { return p.id === id; })[0]; }
+
+  /* ---------- dark mode ---------- */
+  function applyTheme() {
+    if (S.theme) document.documentElement.setAttribute("data-theme", S.theme);
+    else document.documentElement.removeAttribute("data-theme");
+    var b = document.getElementById("themeBtn");
+    if (b) {
+      var dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      b.textContent = dark ? "☀" : "☾";
+      b.setAttribute("aria-label", dark ? "Chuyển sang giao diện sáng" : "Chuyển sang giao diện tối");
+    }
+  }
+  function initTheme() {
+    applyTheme();
+    var b = document.getElementById("themeBtn");
+    if (b) b.addEventListener("click", function () {
+      var dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      S.theme = dark ? "light" : "dark"; save(); applyTheme();
+    });
+  }
+
+  /* ---------- trang chủ ---------- */
+  function initIndex() {
+    var posts = window.POSTS || [];
+    var f = { q: "", topic: "all", tag: "", status: "all", sort: "new" };
+    var grid = document.getElementById("grid");
+    var count = document.getElementById("count");
+
+    function pills(el, items, key, allLabel) {
+      el.innerHTML = '<button class="pill" data-v="" aria-pressed="true">' + allLabel + "</button>" +
+        items.map(function (it) { return '<button class="pill" data-v="' + esc(it.v) + '" aria-pressed="false">' + esc(it.v) + "<small>" + it.n + "</small></button>"; }).join("");
+      el.addEventListener("click", function (e) {
+        var b = e.target.closest(".pill"); if (!b) return;
+        var v = b.getAttribute("data-v");
+        f[key] = (key === "tag" && f.tag === v) ? "" : v;
+        if (key === "topic" && v === "") f.topic = "all";
+        Array.prototype.forEach.call(el.querySelectorAll(".pill"), function (x) {
+          var xv = x.getAttribute("data-v");
+          x.setAttribute("aria-pressed", String((f[key] === "all" ? "" : f[key]) === xv));
+        });
+        render();
+      });
+    }
+    function counts(field) {
+      var m = {};
+      posts.forEach(function (p) { [].concat(p[field]).forEach(function (v) { m[v] = (m[v] || 0) + 1; }); });
+      return Object.keys(m).sort().map(function (v) { return { v: v, n: m[v] }; });
+    }
+    var topicItems = (window.TOPICS || []).map(function (t) { return { v: t, n: posts.filter(function (p) { return p.topic === t; }).length }; });
+    pills(document.getElementById("topics"), topicItems, "topic", "Tất cả");
+    pills(document.getElementById("tags"), counts("tags"), "tag", "Tất cả");
+
+    document.getElementById("q").addEventListener("input", function (e) { f.q = norm(e.target.value.trim()); render(); });
+    document.getElementById("sort").addEventListener("change", function (e) { f.sort = e.target.value; render(); });
+    document.getElementById("status").addEventListener("click", function (e) {
+      var b = e.target.closest(".pill"); if (!b) return;
+      f.status = b.getAttribute("data-v");
+      Array.prototype.forEach.call(this.querySelectorAll(".pill"), function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      render();
+    });
+
+    function hay(p) {
+      return norm([p.title, p.channel, p.topic, p.tags.join(" "), p.summary, p.keyPoints.join(" "),
+        p.quotes.map(function (x) { return x.text + " " + (x.vi || ""); }).join(" ")].join(" "));
+    }
+    function match(p) {
+      if (f.topic !== "all" && p.topic !== f.topic) return false;
+      if (f.tag && p.tags.indexOf(f.tag) < 0) return false;
+      if (f.status === "fav" && !S.fav[p.id]) return false;
+      if (f.status === "unread" && S.read[p.id]) return false;
+      if (f.status === "read" && !S.read[p.id]) return false;
+      if (f.q && hay(p).indexOf(f.q) < 0) return false;
+      return true;
+    }
+    function card(p) {
+      var fav = !!S.fav[p.id];
+      return '<article class="card">' +
+        (S.read[p.id] ? '<span class="badge-read">Đã đọc</span>' : "") +
+        '<button class="fav" data-id="' + esc(p.id) + '" aria-pressed="' + fav + '" aria-label="' + (fav ? "Bỏ yêu thích" : "Thêm vào yêu thích") + '">' + (fav ? "♥" : "♡") + "</button>" +
+        '<a class="cover" href="' + esc(href(p)) + '" tabindex="-1" aria-hidden="true"><img loading="lazy" alt="" src="https://img.youtube.com/vi/' + esc(p.videoId) + '/hqdefault.jpg"></a>' +
+        '<div class="card-body">' +
+        '<div class="chips"><span class="chip">' + esc(p.topic) + "</span></div>" +
+        '<h3><a href="' + esc(href(p)) + '">' + esc(p.title) + "</a></h3>" +
+        '<div class="meta">' + esc(p.channel) + " · " + fmtDate(p.watched) + "</div>" +
+        stars(p.rating) +
+        '<div class="chips">' + p.tags.slice(0, 4).map(function (t) { return '<span class="chip chip--ghost">#' + esc(t) + "</span>"; }).join("") + "</div>" +
+        "</div></article>";
+    }
+    function render() {
+      var list = posts.filter(match).sort(function (a, b) {
+        return f.sort === "rating" ? (b.rating - a.rating) || b.watched.localeCompare(a.watched) : b.watched.localeCompare(a.watched);
+      });
+      count.textContent = list.length + " / " + posts.length + " bài";
+      grid.innerHTML = list.length ? list.map(card).join("") :
+        '<div class="empty"><b>Chưa có bài nào khớp.</b><br>Thử bỏ bớt bộ lọc hoặc đổi từ khóa tìm kiếm.</div>';
+    }
+    /* phần homepage: thống kê, chủ đề, bài mới nhất */
+    var avg = posts.length ? (posts.reduce(function (s, p) { return s + p.rating; }, 0) / posts.length).toFixed(1) : "–";
+    var channels = {}; posts.forEach(function (p) { channels[p.channel] = 1; });
+    document.getElementById("stats").innerHTML =
+      '<div class="stat"><b>' + posts.length + "</b><span>bài tóm tắt</span></div>" +
+      '<div class="stat"><b>' + Object.keys(channels).length + "</b><span>kênh YouTube</span></div>" +
+      '<div class="stat"><b>' + avg + " ★</b><span>đánh giá trung bình</span></div>";
+    var desc = { "Học nói tiếng Anh": "Khung trả lời, mẫu câu và cách luyện nói mỗi ngày.", "Mindset": "Tư duy và thói quen giúp mình đi đường dài.", "Tâm lý": "Hiểu cảm xúc, hành vi của mình và của người khác." };
+    document.getElementById("topicCards").innerHTML = (window.TOPICS || []).map(function (t, i) {
+      var n = posts.filter(function (p) { return p.topic === t; }).length;
+      return '<button class="tcard" data-t="' + esc(t) + '"><div class="icon">' + (i + 1) + "</div><h3>" + esc(t) + "</h3><p>" + esc(desc[t] || "") + " · " + n + " bài</p></button>";
+    }).join("");
+    document.getElementById("topicCards").addEventListener("click", function (e) {
+      var b = e.target.closest(".tcard"); if (!b) return;
+      var pill = Array.prototype.filter.call(document.querySelectorAll("#topics .pill"), function (x) { return x.getAttribute("data-v") === b.getAttribute("data-t"); })[0];
+      if (pill) pill.click();
+      document.getElementById("library").scrollIntoView({ behavior: "smooth" });
+    });
+    if (posts.length) {
+      var l = posts.slice().sort(function (a, b) { return b.watched.localeCompare(a.watched); })[0];
+      document.getElementById("latest").innerHTML = '<div class="feature"><a class="cover" href="' + esc(href(l)) + '"><img alt="" src="https://img.youtube.com/vi/' + esc(l.videoId) + '/hqdefault.jpg"></a><div>' +
+        '<span class="chip">' + esc(l.topic) + "</span><h2>" + esc(l.title) + "</h2><p>" + esc(l.summary) + '</p><div class="meta" style="margin-bottom:16px">' + esc(l.channel) + " · " + fmtDate(l.watched) + " · " + stars(l.rating) + '</div><a class="btn btn--primary" href="' + esc(href(l)) + '">Đọc bài học</a></div></div>';
+      document.getElementById("latest-wrap").hidden = false;
+    }
+
+    grid.addEventListener("click", function (e) {
+      var b = e.target.closest(".fav"); if (!b) return;
+      var id = b.getAttribute("data-id");
+      S.fav[id] = !S.fav[id]; if (!S.fav[id]) delete S.fav[id];
+      save(); render();
+    });
+    render();
+  }
+
+  /* ---------- trang chi tiết ---------- */
+  function withHl(text, list) {
+    var parts = esc(text).split(/(<[^>]+>)/);
+    list.forEach(function (s) {
+      var e = esc(s);
+      parts = parts.map(function (seg) { return seg.charAt(0) === "<" ? seg : seg.split(e).join("<mark>" + e + "</mark>"); });
+    });
+    return parts.join("");
+  }
+  function initPost() {
+    var id = new URLSearchParams(location.search).get("id");
+    var p = byId(id);
+    var root = document.getElementById("post");
+    if (!p) {
+      root.innerHTML = '<div class="wrap wrap--narrow post-head"><a class="back" href="index.html">← Về thư viện</a><h1>Không tìm thấy bài này</h1></div>';
+      return;
+    }
+    document.title = p.title + " · Minh's Lab";
+    function draw() {
+      var hl = S.hl[p.id] || [];
+      var fav = !!S.fav[p.id], read = !!S.read[p.id];
+      root.innerHTML =
+        '<div class="wrap wrap--narrow"><div class="post-head">' +
+        '<a class="back" href="index.html">← Về thư viện</a><br>' +
+        '<span class="chip">' + esc(p.topic) + "</span>" +
+        "<h1>" + esc(p.title) + "</h1>" +
+        '<div class="meta-row"><span>' + esc(p.channel) + "</span><span>Đã xem " + fmtDate(p.watched) + "</span>" + stars(p.rating) + "</div>" +
+        '<div class="chips" style="margin-top:14px">' + p.tags.map(function (t) { return '<a class="chip chip--ghost" style="text-decoration:none" href="index.html">#' + esc(t) + "</a>"; }).join("") + "</div>" +
+        '<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/' + esc(p.videoId) + '" title="' + esc(p.title) + '" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>' +
+        '<div class="actions">' +
+        '<button class="btn btn--secondary" id="favBtn" aria-pressed="' + fav + '">' + (fav ? "♥ Đã yêu thích" : "♡ Yêu thích") + "</button>" +
+        '<button class="btn btn--secondary" id="readBtn" aria-pressed="' + read + '">' + (read ? "✓ Đã đọc" : "Đánh dấu đã đọc") + "</button>" +
+        '<a class="btn btn--secondary" href="' + esc(p.youtube) + '" target="_blank" rel="noopener">Mở trên YouTube ↗</a>' +
+        (p.fullPage ? '<a class="btn btn--primary" href="' + esc(p.fullPage) + '">Xem bài học đầy đủ</a>' : "") +
+        "</div></div>" +
+        '<div class="block"><p class="lead" style="margin-top:0">' + esc(p.summary) + "</p></div>" +
+        '<div class="block reading"><span class="eyebrow">Ý chính</span><ol class="points">' +
+        p.keyPoints.map(function (k) { return "<li><span>" + withHl(k, hl) + "</span></li>"; }).join("") + "</ol>" +
+        '<p class="muted" style="margin-top:12px">Mẹo: bôi đen một đoạn chữ để highlight lại.</p></div>' +
+        '<div class="block reading"><span class="eyebrow">Trích dẫn hay</span>' +
+        p.quotes.map(function (q) { return '<blockquote class="quote"><p>“' + withHl(q.text, hl) + '”</p>' + (q.vi ? '<span class="vi">' + esc(q.vi) + "</span>" : "") + "</blockquote>"; }).join("") + "</div>" +
+        '<div class="block notes"><span class="eyebrow">Highlight của bạn</span>' +
+        (hl.length ? '<ul class="hl-list">' + hl.map(function (s, i) { return "<li><span>" + esc(s) + '</span><button data-i="' + i + '" aria-label="Xóa highlight">×</button></li>'; }).join("") + "</ul>" : '<p class="muted">Chưa có highlight nào.</p>') +
+        '<div style="height:24px"></div><span class="eyebrow">Ghi chú cá nhân</span>' +
+        '<textarea id="note" placeholder="Bạn rút ra điều gì? Sẽ áp dụng thế nào?">' + esc(S.notes[p.id] || "") + "</textarea>" +
+        '<p class="muted" style="margin-top:8px">Ghi chú, yêu thích và highlight chỉ được lưu trên trình duyệt này.</p></div></div>';
+
+      document.getElementById("favBtn").onclick = function () { S.fav[p.id] = !S.fav[p.id]; if (!S.fav[p.id]) delete S.fav[p.id]; save(); draw(); };
+      document.getElementById("readBtn").onclick = function () { S.read[p.id] = !S.read[p.id]; if (!S.read[p.id]) delete S.read[p.id]; save(); draw(); };
+      document.getElementById("note").addEventListener("input", function (e) { S.notes[p.id] = e.target.value; save(); });
+      Array.prototype.forEach.call(root.querySelectorAll(".hl-list button"), function (b) {
+        b.onclick = function () { S.hl[p.id].splice(+b.getAttribute("data-i"), 1); save(); draw(); };
+      });
+    }
+    draw();
+
+    /* highlight bằng cách bôi đen */
+    var pop = document.createElement("button");
+    pop.className = "hl-pop"; pop.textContent = "Highlight"; document.body.appendChild(pop);
+    var pending = "";
+    document.addEventListener("mouseup", function (e) {
+      if (e.target === pop) return;
+      setTimeout(function () {
+        var sel = window.getSelection(), t = sel ? sel.toString().trim() : "";
+        var node = sel && sel.anchorNode && (sel.anchorNode.nodeType === 3 ? sel.anchorNode.parentElement : sel.anchorNode);
+        if (t.length >= 3 && t.indexOf("\n") < 0 && node && node.closest && node.closest(".reading")) {
+          var r = sel.getRangeAt(0).getBoundingClientRect();
+          pending = t;
+          pop.style.display = "block";
+          pop.style.top = (window.scrollY + r.top - 44) + "px";
+          pop.style.left = Math.max(8, window.scrollX + r.left) + "px";
+        } else { pop.style.display = "none"; pending = ""; }
+      }, 0);
+    });
+    pop.addEventListener("mousedown", function (e) { e.preventDefault(); });
+    pop.addEventListener("click", function () {
+      if (!pending) return;
+      S.hl[p.id] = S.hl[p.id] || [];
+      if (S.hl[p.id].indexOf(pending) < 0) S.hl[p.id].push(pending);
+      save(); pop.style.display = "none"; pending = ""; window.getSelection().removeAllRanges(); draw();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    initTheme();
+    if (document.getElementById("grid")) initIndex();
+    if (document.getElementById("post")) initPost();
+  });
+})();
+
+</script>
+</body>
+</html>
